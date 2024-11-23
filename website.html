@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time STT with Video</title>
+    <style>
+        #video-container {
+            display: flex;
+        }
+        #video {
+            width: 60%;
+        }
+        #transcription {
+            width: 40%;
+            padding: 10px;
+            background: #f3f3f3;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <video id="video" autoplay controls>
+            <source src="http://192.168.12.156:8000" type="video/mp4">
+        </video>
+        <div id="transcription">
+            <h3>Transcription:</h3>
+            <p id="text-output">Waiting for transcription...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        
+        socket.on('transcription', function(data) {
+            document.getElementById('text-output').innerText = data.text;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+    "local_model_dir": "../model/whisper-base",      
+    "audio_file_path": "test_wav.wav",        
+    "sampling_rate": 16000,                   
+    "duration": 5,                            
+    "language": "ko",                         
+    "task": "transcribe"                      
+  }
+  

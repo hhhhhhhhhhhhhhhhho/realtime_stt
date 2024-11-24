@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming with STT</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        video {
+            width: 80%;
+            max-width: 720px;
+            margin-top: 20px;
+        }
+        .stt-result {
+            margin-top: 20px;
+            padding: 10px;
+            width: 80%;
+            max-width: 720px;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTTP Video Streaming with STT</h1>
+    <video controls autoplay>
+        <source src="http://127.0.0.1:8080/live" type="video/mp4">
+        Your browser does not support video playback.
+    </video>
+    <div class="stt-result" id="stt-result">
+        <strong>STT Results:</strong>
+        <p id="stt-text">Waiting for transcription...</p>
+    </div>
+
+    <script>
+        const socket = io();
+        socket.on("stt_result", (data) => {
+            const sttText = document.getElementById("stt-text");
+            sttText.textContent = data.text;
+        });
+    </script>
+</body>
+</html>

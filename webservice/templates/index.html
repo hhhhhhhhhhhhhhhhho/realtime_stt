@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HLS Streaming</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <h1>HLS Streaming Example</h1>
+    <video id="video" width="640" height="360" controls></video>
+
+    <script>
+        var video = document.getElementById('video');
+        var videoSrc = "http://192.168.0.17:8889/hls/output.m3u8";  // Flask 서버에서 제공하는 .m3u8 파일 경로
+
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                console.log("Manifest loaded, starting playback...");
+            });
+        }
+        // HLS.js가 지원되지 않는 브라우저에 대한 처리
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+        }
+        else {
+            console.error("Your browser does not support HLS!");
+        }
+    </script>
+</body>
+</html>

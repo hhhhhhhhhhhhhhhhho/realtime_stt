@@ -1,11 +1,10 @@
 {
-    "local_model_dir 은 수정되어야 합니다." : "해당 필드는 사용되지 않으므로 참고하세요.",
-    "local_model_dir": "../model/whisper-base",  
+    "local_model_dir": "model/whisper-base",      
     "audio_file_path": "test_wav.wav",        
     "sampling_rate": 16000,                   
     "duration": 5,                            
     "language": "ko",                         
     "task": "transcribe",
-    "hls" : "hls"
+    "udp_url":"udp://127.0.0.1:1235" 
   }
   
